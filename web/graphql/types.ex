@@ -3,7 +3,7 @@ defmodule GraphqlExampleAbsinthe.Graphql.Types do
   alias GraphqlExampleAbsinthe.{
     Employer, User, Family
   }
-
+  @desc "Employer"
   object :employer do
     field :id, :id
     field :name, :string
@@ -18,6 +18,7 @@ defmodule GraphqlExampleAbsinthe.Graphql.Types do
     field :families, list_of(:family)
   end
 
+  @desc "user: the base for employees and dependents"
   object :user do
     field :id, :id
     field :first_name, :string
@@ -36,7 +37,9 @@ defmodule GraphqlExampleAbsinthe.Graphql.Types do
   object :family do
     field :id, :id
     field :employer, :employer
+    @desc "the employee of the family"
     field :primary_user, :user
+    @desc "the dependents of the family"
     field :dependents, list_of(:user) do
       resolve fn parent, _, _ ->
         batch({GraphqlExampleAbsinthe.Graphql.Helpers, :has_many_dependents, User}, parent.id, fn batch_results ->
