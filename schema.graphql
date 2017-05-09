@@ -1,0 +1,35 @@
+schema {
+  query: RootQueryType
+}
+
+type Employer {
+  employees: [User]
+  families: [Family]
+  id: ID
+  name: String
+  someUselessField: String
+}
+
+type Family {
+  dependents: [User]
+  employer: Employer
+  id: ID
+  primaryUser: User
+}
+
+type RootQueryType {
+  # Get a user of the site
+  employees: [User]
+
+  # Get a list of employers
+  employers: [Employer]
+}
+
+type User {
+  employer: Employer
+  family: Family
+  firstName: String
+  id: ID
+  lastName: String
+  type: String
+}
