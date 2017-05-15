@@ -3,6 +3,30 @@ defmodule GraphqlExampleAbsinthe.Graphql.Types do
   alias GraphqlExampleAbsinthe.{
     Employer, User, Family
   }
+
+  @desc "Employer Input Object"
+  input_object :employer_input do
+    field :id, :id
+    field :name, non_null(:string)
+    field :some_useless_field, :string
+  end
+
+
+  @desc "User Input Object"
+  input_object :user_input do
+    field :first_name, non_null(:string)
+    field :last_name, non_null(:string)
+    field :type, non_null(:string)
+  end
+
+  @desc "Fmaily Input Object"
+  input_object :family_input do
+    @desc "the employee of the family"
+    field :primary_user, non_null(:user_input)
+    @desc "the dependents of the family"
+    field :dependents, list_of(:user_input)
+  end
+
   @desc "Employer"
   object :employer do
     field :id, :id

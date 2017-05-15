@@ -13,4 +13,18 @@ defmodule GraphqlExampleAbsinthe.Schema do
       resolve &GraphqlExampleAbsinthe.EmployeeResolver.all/2
     end
   end
+
+  mutation do
+    @desc "Create an employer"
+    field :employer, :employer do
+      arg :employer_input, :employer_input
+      resolve &GraphqlExampleAbsinthe.EmployerResolver.create/2
+    end
+    @desc "Create an family"
+    field :family, :family do
+      arg :employer_id, non_null(:integer)
+      arg :family, non_null(:family_input)
+      resolve &GraphqlExampleAbsinthe.FamilyResolver.create/2
+    end
+  end
 end
